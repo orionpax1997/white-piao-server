@@ -1,12 +1,18 @@
 {
-  "name": "nextjs",
-  "version": "0.1.0",
-  "private": true,
+  "name": "white-piao-server",
+  "version": "0.0.1",
+  "description": "white-piao 的服务端, 主要用于维护资源获取的表达式",
+  "main": "dist/index.js",
+  "author": "Humble.X",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "next": "12.2.5",
@@ -14,7 +20,29 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@emotion/jest": "^11.7.1",
+    "@testing-library/jest-dom": "5.16.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "13.5.0",
+    "@types/node": "^17.0.12",
+    "@types/react": "^17.0.38",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.1",
+    "babel-jest": "27.4.5",
     "eslint": "8.22.0",
-    "eslint-config-next": "12.2.5"
+    "eslint-config-next": "^12.0.8",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-testing-library": "5.0.1",
+    "husky": "^7.0.4",
+    "jest": "27.4.5",
+    "prettier": "^2.5.0",
+    "typescript": "^4.5.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Humble-Xiang/white-piao-server"
   }
 }

@@ -1,0 +1,4 @@
+{
+  // List of extensions which should be recommended for users of this 1workspace.
+  "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "xyz.local-history"]
+}

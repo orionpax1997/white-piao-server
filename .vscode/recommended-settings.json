@@ -1,0 +1,28 @@
+{
+  // 设置各种代码的默认格式化器
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // 插件配置
+  // Eslint插件配置
+  "eslint.enable": true, // 启用/禁用 vscode-eslint。默认情况下是启用的
+  "eslint.alwaysShowStatus": true, // 设置状态栏是否一直显示ESlint图标项，true表示一直显示
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true // 设置保存时是否自动修复代码
+  },
+  "eslint.format.enable": false, // 设置是否把ESlint作为一个格式化器，true表示启用
+
+  // Prettier插件配置
+  "prettier.useEditorConfig": false, // 设置不使用 .editorconfig 文件
+  "prettier.enable": true // 设置是否开启prettier插件，默认为true，即开启
+}
