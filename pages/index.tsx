@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Layout } from '@/components/index';
 import { Source } from '@/modals/index';
+import Link from 'next/link';
 
 type FormValues = {
   objectId?: string;
@@ -190,7 +191,9 @@ const SourceTable = ({
                       <button className="btn btn-sm" onClick={() => onEditClick(item)}>
                         修改
                       </button>
-                      <button className="btn btn-sm">表达式维护</button>
+                      <Link href={`/sources/${item.objectId}/scripts`}>
+                        <button className="btn btn-sm">表达式维护</button>
+                      </Link>
                     </div>
                   </td>
                 </tr>

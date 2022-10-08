@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import AV from 'leancloud-storage';
-import { SourceObject } from '@/utils/leancloud-object';
+import { AV, SourceObject } from '@/utils/leancloud-object';
 
 const sources = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -14,6 +13,9 @@ const sources = async (req: NextApiRequest, res: NextApiResponse) => {
     sourceObj.set('name', req.body.name);
     sourceObj.set('baseURL', req.body.baseURL);
     sourceObj.set('status', req.body.status);
+    sourceObj.set('searchScript', req.body.searchScript);
+    sourceObj.set('findSeriesScript', req.body.findSeriesScript);
+    sourceObj.set('findStreamScript', req.body.findStreamScript);
     res.status(200).send(await sourceObj.save());
   } else if (req.method === 'GET') {
     const SourceQuery = new AV.Query('Source');

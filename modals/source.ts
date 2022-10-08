@@ -4,7 +4,7 @@ export class Source extends AbstractAVObject {
   name!: string;
   baseURL!: string;
   status!: number;
-  searchExpression?: string;
-  loadSeriesExpression?: string;
-  findStreamExpression?: string;
+  searchScript?: string;
+  findSeriesScript?: string;
+  findStreamScript?: string;
 }

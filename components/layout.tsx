@@ -1,9 +1,39 @@
-import Navbar from '@/components/navbar';
 const Layout: React.FC = ({ children }) => (
   <div className="container mx-auto min-h-screen">
     <Navbar />
     <div className="flex flex-col justify-around h-[calc(100vh-66px)]">{children}</div>
   </div>
 );
+
+const Navbar = () => {
+  return (
+    <div className="navbar bg-base-100">
+      <div className="flex-1">
+        <a className="btn btn-ghost normal-case text-xl">WhitePiaoServer</a>
+      </div>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full">
+            <img src="https://placeimg.com/80/80/people" />
+          </div>
+        </label>
+        <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+          <li>
+            <a className="justify-between">
+              Profile
+              <span className="badge">New</span>
+            </a>
+          </li>
+          <li>
+            <a>Settings</a>
+          </li>
+          <li>
+            <a>Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 export default Layout;
