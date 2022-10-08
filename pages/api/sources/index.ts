@@ -7,12 +7,16 @@ const sources = async (req: NextApiRequest, res: NextApiResponse) => {
     sourceObj.set('name', req.body.name);
     sourceObj.set('baseURL', req.body.baseURL);
     sourceObj.set('status', 0);
+    sourceObj.set('author', req.body.author);
+    sourceObj.set('authorEmail', req.body.authorEmail);
     res.status(200).send(await sourceObj.save());
   } else if (req.method === 'PUT') {
     const sourceObj = AV.Object.createWithoutData('Source', req.body.objectId);
     if (req.body.name) sourceObj.set('name', req.body.name);
     if (req.body.baseURL) sourceObj.set('baseURL', req.body.baseURL);
     if (req.body.status != null) sourceObj.set('status', req.body.status);
+    if (req.body.author != null) sourceObj.set('author', req.body.author);
+    if (req.body.authorEmail != null) sourceObj.set('authorEmail', req.body.authorEmail);
     if (req.body.searchScript) sourceObj.set('searchScript', req.body.searchScript);
     if (req.body.searchTime) sourceObj.set('searchTime', req.body.searchTime);
     if (req.body.findSeriesScript) sourceObj.set('findSeriesScript', req.body.findSeriesScript);

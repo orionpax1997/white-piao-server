@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import Editor, { OnChange } from '@monaco-editor/react';
 import { Source } from '@/modals/index';
 import { Layout } from '@/components/index';
@@ -39,6 +40,7 @@ export default function SearchScript() {
   const { id } = router.query;
   const [activedOption, setActivedOption] = useState<ScriptOptions>('search');
   const [source, setSource] = useState<Source>(new Source());
+  const { data: session } = useSession();
   const [scriptEditorData, setScriptEditorData] = useState<{
     [key in ScriptOptions]: {
       script: string;
@@ -52,9 +54,9 @@ export default function SearchScript() {
       ok: boolean;
     };
   }>({
-    search: initScriptEditorData,
-    findSeries: initScriptEditorData,
-    findStream: initScriptEditorData,
+    search: { ...initScriptEditorData, inputLabel: '关键字' },
+    findSeries: { ...initScriptEditorData, inputLabel: '目录页地址' },
+    findStream: { ...initScriptEditorData, inputLabel: '播放页地址' },
   });
 
   useEffect(() => {
@@ -154,7 +156,9 @@ export default function SearchScript() {
               ...scriptEditorData[activedOption],
               output: JSON.stringify(json, null, 2),
               testing: false,
-              canSave: res.status === 200,
+              canSave:
+                res.status === 200 &&
+                (source.author === session?.user?.name || session?.user?.name === process.env.NEXT_PUBLIC_GITHUB_ADMIN),
               ok: res.status === 200,
             },
           });

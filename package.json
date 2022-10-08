@@ -21,6 +21,7 @@
     "daisyui": "^2.27.0",
     "leancloud-storage": "^4.13.2",
     "next": "12.2.5",
+    "next-auth": "^4.12.3",
     "node-global-proxy": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

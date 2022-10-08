@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 import { Layout } from '@/components/index';
 import { Source } from '@/modals/index';
 import Link from 'next/link';
@@ -17,6 +18,7 @@ export default function SourceManage() {
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
   const [listNeedReload, setListNeedReload] = useState(false);
+  const { data: session, status } = useSession();
 
   const [formValues, setFormValues] = useState<FormValues>({});
   const [formShow, setFormShow] = useState(false);
@@ -51,7 +53,7 @@ export default function SourceManage() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, author: session?.user?.name, authorEmail: session?.user?.email }),
     });
     setFormLoading(false);
     setFormShow(false);
@@ -64,7 +66,7 @@ export default function SourceManage() {
         <SearchForm keyword={keyword} onKeywordChange={v => setKeyword(v)} onSearch={() => setListNeedReload(true)} />
         <label
           htmlFor="add-modal"
-          className="btn modal-button btn-primary"
+          className={`btn modal-button btn-primary ${status !== 'authenticated' && 'btn-disabled'}`}
           onClick={() => {
             setFormValues({});
             setFormShow(true);
@@ -150,6 +152,7 @@ const SourceTable = ({
   onPageChange: (number: number) => void;
   onEditClick: (source: Source) => void;
 }) => {
+  const { data: session, status } = useSession();
   return (
     <>
       <div className="overflow-x-auto">
@@ -159,6 +162,7 @@ const SourceTable = ({
               <th>序号</th>
               <th>网站名称</th>
               <th>网站地址</th>
+              <th>作者</th>
               <th>搜索时间</th>
               <th>状态</th>
               <th>操作</th>
@@ -176,7 +180,17 @@ const SourceTable = ({
                       {item.baseURL}
                     </a>
                   </td>
-                  <td>{item.searchTime}ms</td>
+                  <td>
+                    <a
+                      className="link link-accent"
+                      href={`https://github.com/${item.author}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.author}
+                    </a>
+                  </td>
+                  <td>{item.searchTime && <>{item.searchTime} ms</>}</td>
                   <td>
                     {item.status === 0 ? (
                       <div className="badge badge-outline badge-warning">维护中</div>
@@ -190,11 +204,18 @@ const SourceTable = ({
                   </td>
                   <td>
                     <div className="btn-group">
-                      <button className="btn btn-sm" onClick={() => onEditClick(item)}>
+                      <button
+                        className={`btn btn-sm ${
+                          item.author !== session?.user?.name &&
+                          session?.user?.name !== process.env.NEXT_PUBLIC_GITHUB_ADMIN &&
+                          'btn-disabled'
+                        }`}
+                        onClick={() => onEditClick(item)}
+                      >
                         修改
                       </button>
                       <Link href={`/sources/${item.objectId}/scripts`}>
-                        <button className="btn btn-sm">表达式维护</button>
+                        <button className={`btn btn-sm ${status !== 'authenticated' && 'btn-disabled'}`}>表达式</button>
                       </Link>
                     </div>
                   </td>
