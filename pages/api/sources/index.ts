@@ -10,12 +10,13 @@ const sources = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).send(await sourceObj.save());
   } else if (req.method === 'PUT') {
     const sourceObj = AV.Object.createWithoutData('Source', req.body.objectId);
-    sourceObj.set('name', req.body.name);
-    sourceObj.set('baseURL', req.body.baseURL);
-    sourceObj.set('status', req.body.status);
-    sourceObj.set('searchScript', req.body.searchScript);
-    sourceObj.set('findSeriesScript', req.body.findSeriesScript);
-    sourceObj.set('findStreamScript', req.body.findStreamScript);
+    if (req.body.name) sourceObj.set('name', req.body.name);
+    if (req.body.baseURL) sourceObj.set('baseURL', req.body.baseURL);
+    if (req.body.status != null) sourceObj.set('status', req.body.status);
+    if (req.body.searchScript) sourceObj.set('searchScript', req.body.searchScript);
+    if (req.body.searchTime) sourceObj.set('searchTime', req.body.searchTime);
+    if (req.body.findSeriesScript) sourceObj.set('findSeriesScript', req.body.findSeriesScript);
+    if (req.body.findStreamScript) sourceObj.set('findStreamScript', req.body.findStreamScript);
     res.status(200).send(await sourceObj.save());
   } else if (req.method === 'GET') {
     const SourceQuery = new AV.Query('Source');

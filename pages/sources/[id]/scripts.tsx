@@ -135,11 +135,24 @@ export default function SearchScript() {
               input: scriptEditorData[activedOption].input,
             }),
           });
+          const json = await res.json();
+          if (res.status === 200 && activedOption === 'search') {
+            fetch('/api/sources', {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                objectId: source.objectId,
+                searchTime: json.time,
+              }),
+            });
+          }
           setScriptEditorData({
             ...scriptEditorData,
             [activedOption]: {
               ...scriptEditorData[activedOption],
-              output: JSON.stringify(await res.json(), null, 2),
+              output: JSON.stringify(json, null, 2),
               testing: false,
               canSave: res.status === 200,
               ok: res.status === 200,

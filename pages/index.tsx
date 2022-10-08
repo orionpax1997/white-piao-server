@@ -159,6 +159,7 @@ const SourceTable = ({
               <th>序号</th>
               <th>网站名称</th>
               <th>网站地址</th>
+              <th>搜索时间</th>
               <th>状态</th>
               <th>操作</th>
             </tr>
@@ -175,6 +176,7 @@ const SourceTable = ({
                       {item.baseURL}
                     </a>
                   </td>
+                  <td>{item.searchTime}ms</td>
                   <td>
                     {item.status === 0 ? (
                       <div className="badge badge-outline badge-warning">维护中</div>

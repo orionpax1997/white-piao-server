@@ -4,7 +4,6 @@ const { LEAN_ID, LEAN_KEY } = process.env;
 
 // proxy.setConfig('http://127.0.0.1:7890');
 // proxy.start();
-
 // AV.debug.enable();
 
 AV.init({
