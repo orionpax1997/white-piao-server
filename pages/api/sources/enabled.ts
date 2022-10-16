@@ -7,7 +7,7 @@ const enabled = async (req: NextApiRequest, res: NextApiResponse) => {
     SourceQuery.equalTo('status', 2);
     SourceQuery.ascending('searchTime');
     const list = await SourceQuery.find();
-    res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
+    // res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
     res.status(200).send(list);
   } else {
     res.status(405).send({});
