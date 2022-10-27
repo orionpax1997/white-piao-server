@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import NodeVM from '@/utils/node-vm';
+
 import { SearchItem, EpisodeGroup, Episode } from '@/modals/index';
+import { allowCors } from '@/utils/index';
 
 const run = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -39,4 +41,4 @@ const run = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default run;
+export default allowCors(run);

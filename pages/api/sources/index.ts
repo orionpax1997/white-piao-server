@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { AV, SourceObject } from '@/utils/leancloud-object';
+import { allowCors } from '@/utils/index';
 
 const sources = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -42,4 +43,4 @@ const sources = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default sources;
+export default allowCors(sources);
