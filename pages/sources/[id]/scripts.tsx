@@ -199,6 +199,19 @@ export default function SearchScript() {
               canSave: false,
             },
           });
+          setSource({
+            ...source,
+            status: source.status
+              ? source.status
+              : scriptEditorData.search.ok && scriptEditorData.findSeries.ok && scriptEditorData.findStream.ok
+              ? 1
+              : 0,
+            searchScript: activedOption === 'search' ? scriptEditorData.search.script : source.searchScript,
+            findSeriesScript:
+              activedOption === 'findSeries' ? scriptEditorData.findSeries.script : source.findSeriesScript,
+            findStreamScript:
+              activedOption === 'findStream' ? scriptEditorData.findStream.script : source.findStreamScript,
+          });
         }}
       />
       ;
