@@ -4,9 +4,15 @@ import { useSession } from 'next-auth/react';
 import Editor, { OnChange } from '@monaco-editor/react';
 import { Source } from '@/modals/index';
 import { Layout } from '@/components/index';
-import { SEARCH_EXAMPLE, FIND_SERIES_EXAMPLE, FIND_STREAM_EXAMPLE } from '@/utils/script-example';
+import {
+  SEARCH_EXAMPLE,
+  FIND_SERIES_EXAMPLE,
+  FIND_STREAM_EXAMPLE,
+  FIND_DISCOVERY_EXAMPLE,
+  DISCOVERY_EXAMPLE,
+} from '@/utils/script-example';
 
-type ScriptOptions = 'search' | 'findSeries' | 'findStream';
+type ScriptOptions = 'search' | 'findSeries' | 'findStream' | 'findDiscovery' | 'discovery';
 
 const tabs: { key: ScriptOptions; name: string }[] = [
   {
@@ -15,11 +21,19 @@ const tabs: { key: ScriptOptions; name: string }[] = [
   },
   {
     key: 'findSeries',
-    name: '发现目录',
+    name: '获取剧集',
   },
   {
     key: 'findStream',
-    name: '发现播放流',
+    name: '获取视频流',
+  },
+  {
+    key: 'findDiscovery',
+    name: '获取发现',
+  },
+  {
+    key: 'discovery',
+    name: '发现',
   },
 ];
 
@@ -57,6 +71,8 @@ export default function SearchScript() {
     search: { ...initScriptEditorData, inputLabel: '关键字' },
     findSeries: { ...initScriptEditorData, inputLabel: '目录页地址' },
     findStream: { ...initScriptEditorData, inputLabel: '播放页地址' },
+    findDiscovery: { ...initScriptEditorData },
+    discovery: { ...initScriptEditorData, inputLabel: '发现页地址' },
   });
 
   useEffect(() => {
@@ -76,6 +92,14 @@ export default function SearchScript() {
         findStream: {
           ...scriptEditorData.findStream,
           script: source.findStreamScript ? source.findStreamScript : FIND_STREAM_EXAMPLE,
+        },
+        findDiscovery: {
+          ...scriptEditorData.findDiscovery,
+          script: source.findDiscoveryScript ? source.findDiscoveryScript : FIND_DISCOVERY_EXAMPLE,
+        },
+        discovery: {
+          ...scriptEditorData.discovery,
+          script: source.discoveryScript ? source.discoveryScript : DISCOVERY_EXAMPLE,
         },
       });
     };
@@ -110,7 +134,7 @@ export default function SearchScript() {
           })
         }
         onTest={async () => {
-          if (!scriptEditorData[activedOption].input) {
+          if (scriptEditorData[activedOption].inputLabel && !scriptEditorData[activedOption].input) {
             setScriptEditorData({
               ...scriptEditorData,
               [activedOption]: {
@@ -188,6 +212,10 @@ export default function SearchScript() {
                 activedOption === 'findSeries' ? scriptEditorData.findSeries.script : source.findSeriesScript,
               findStreamScript:
                 activedOption === 'findStream' ? scriptEditorData.findStream.script : source.findStreamScript,
+              findDiscoveryScript:
+                activedOption === 'findDiscovery' ? scriptEditorData.findDiscovery.script : source.findDiscoveryScript,
+              discoveryScript:
+                activedOption === 'discovery' ? scriptEditorData.discovery.script : source.discoveryScript,
             }),
           });
           alert('保存成功');
@@ -203,7 +231,8 @@ export default function SearchScript() {
             ...source,
             status: source.status
               ? source.status
-              : scriptEditorData.search.ok && scriptEditorData.findSeries.ok && scriptEditorData.findStream.ok
+              : (scriptEditorData.search.ok && scriptEditorData.findSeries.ok && scriptEditorData.findStream.ok) ||
+                (scriptEditorData.findDiscovery.ok && scriptEditorData.discovery.ok)
               ? 1
               : 0,
             searchScript: activedOption === 'search' ? scriptEditorData.search.script : source.searchScript,
@@ -211,6 +240,9 @@ export default function SearchScript() {
               activedOption === 'findSeries' ? scriptEditorData.findSeries.script : source.findSeriesScript,
             findStreamScript:
               activedOption === 'findStream' ? scriptEditorData.findStream.script : source.findStreamScript,
+            findDiscoveryScript:
+              activedOption === 'findDiscovery' ? scriptEditorData.findDiscovery.script : source.findDiscoveryScript,
+            discoveryScript: activedOption === 'discovery' ? scriptEditorData.discovery.script : source.discoveryScript,
           });
         }}
       />
@@ -281,7 +313,7 @@ const ScriptEditor = ({
       </div>
       <div className="flex flex-col justify-around">
         <div className="text-xl font-bold">输出</div>
-        <div className="h-[60vh] rounded-md overflow-hidden">
+        <div className={`${inputLabel ? 'h-[60vh]' : 'h-[72vh]'} rounded-md overflow-hidden`}>
           <Editor
             theme="vs-dark"
             defaultLanguage="json"
@@ -291,15 +323,19 @@ const ScriptEditor = ({
             }}
           />
         </div>
-        <div className="text-xl font-bold">输入</div>
-        <input
-          type="text"
-          placeholder={`请输入${inputLabel}`}
-          className="input input-bordered"
-          value={input}
-          onChange={e => onInputChange(e.target.value)}
-        />
-        {inputError && <span className="text-error">输入不能为空！</span>}
+        {inputLabel && (
+          <>
+            <div className="text-xl font-bold">输入</div>
+            <input
+              type="text"
+              placeholder={`请输入${inputLabel}`}
+              className="input input-bordered"
+              value={input}
+              onChange={e => onInputChange(e.target.value)}
+            />
+            {inputError && <span className="text-error">输入不能为空！</span>}
+          </>
+        )}
         <div className="flex justify-end gap-2">
           <button className={`btn btn-primary w-1/3 ${testing && 'loading'}`} onClick={onTest}>
             测试

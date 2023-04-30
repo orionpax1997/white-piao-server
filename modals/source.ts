@@ -6,8 +6,10 @@ export class Source extends AbstractAVObject {
   status!: number;
   author!: string;
   authorEmail!: string;
-  searchScript?: string;
   searchTime?: number;
+  searchScript?: string;
   findSeriesScript?: string;
   findStreamScript?: string;
+  findDiscoveryScript?: string;
+  discoveryScript?: string;
 }

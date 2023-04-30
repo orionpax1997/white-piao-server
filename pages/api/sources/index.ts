@@ -22,6 +22,8 @@ const sources = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.body.searchTime) sourceObj.set('searchTime', req.body.searchTime);
     if (req.body.findSeriesScript) sourceObj.set('findSeriesScript', req.body.findSeriesScript);
     if (req.body.findStreamScript) sourceObj.set('findStreamScript', req.body.findStreamScript);
+    if (req.body.findDiscoveryScript) sourceObj.set('findDiscoveryScript', req.body.findDiscoveryScript);
+    if (req.body.discoveryScript) sourceObj.set('discoveryScript', req.body.discoveryScript);
     res.status(200).send(await sourceObj.save());
   } else if (req.method === 'GET') {
     const SourceQuery = new AV.Query('Source');
