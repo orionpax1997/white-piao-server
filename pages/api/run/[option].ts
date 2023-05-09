@@ -56,10 +56,12 @@ const run = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     res.status(200).json({ data, time });
   } catch (error) {
-    if (typeof error === 'string') {
-      res.status(500).json({ data, msg: error });
-    } else if (error instanceof Error) {
-      res.status(500).json({ data, msg: error.message });
+    const errMessage = error instanceof Error ? error.message : error;
+    if (typeof errMessage === 'string' && errMessage.includes('timeout')) {
+      res.statusMessage = errMessage;
+      res.status(408).send({ data, msg: errMessage, error: errMessage });
+    } else {
+      res.status(500).json({ data, msg: errMessage });
     }
   }
 };
