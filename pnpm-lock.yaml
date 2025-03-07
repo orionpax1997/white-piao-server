@@ -44,9 +44,6 @@ importers:
       node-global-proxy:
         specifier: ^1.0.1
         version: 1.0.1
-      node-html-parser:
-        specifier: ^7.0.1
-        version: 7.0.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -2004,10 +2001,6 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  he@1.2.0:
-    resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
-    hasBin: true
-
   hexoid@1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
     engines: {node: '>=8'}
@@ -2735,9 +2728,6 @@ packages:
 
   node-global-proxy@1.0.1:
     resolution: {integrity: sha512-pKGD42p81TFbrUudDBtApwri2Ho1xjm3ozmXhHLIRpwgXk18KvPMv0ubDZLD8gNI6q/Jzc2zK6jNbga8j+FRSw==}
-
-  node-html-parser@7.0.1:
-    resolution: {integrity: sha512-KGtmPY2kS0thCWGK0VuPyOS+pBKhhe8gXztzA2ilAOhbUbxa9homF1bOyKvhGzMLXUoRds9IOmr/v5lr/lqNmA==}
 
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
@@ -6133,8 +6123,6 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  he@1.2.0: {}
-
   hexoid@1.0.0: {}
 
   hosted-git-info@2.8.9: {}
@@ -7139,11 +7127,6 @@ snapshots:
     dependencies:
       global-agent: 2.2.0
       global-tunnel-ng: 2.7.1
-
-  node-html-parser@7.0.1:
-    dependencies:
-      css-select: 5.1.0
-      he: 1.2.0
 
   node-int64@0.4.0: {}
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
-import parse from 'node-html-parser';
+import cheerio from 'cheerio';
 
-// import cheerio from 'cheerio';
 // import md5 from 'md5';
 // import cryptoJs from 'crypto-js';
 // import * as byteBase64 from 'byte-base64';
@@ -17,7 +16,7 @@ export default class JavaScriptVM {
   constructor(script: string) {
     this._fun = new Function(
       'axios',
-      'parse',
+      'cheerio',
       'input',
       `return new Promise(resolve => {
             ${script}
@@ -26,6 +25,6 @@ export default class JavaScriptVM {
   }
 
   async run(input: any): Promise<any> {
-    return await this._fun(instance, parse.parse, input);
+    return await this._fun(instance, cheerio, input);
   }
 }
