@@ -9,7 +9,7 @@ const { LEAN_ID, LEAN_KEY } = process.env;
 AV.init({
   appId: LEAN_ID as string,
   appKey: LEAN_KEY as string,
-  serverURL: 'https://leancloud.dramacat.top',
+  serverURL: 'https://leancloud.qingtian.me',
 });
 
 const SourceObject = AV.Object.extend('Source');
