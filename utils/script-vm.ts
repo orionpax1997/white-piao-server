@@ -21,8 +21,7 @@ export default class JavaScriptVM {
       'input',
       `return new Promise(resolve => {
             ${script}
-        })
-    })`
+       })`
     );
   }
 
