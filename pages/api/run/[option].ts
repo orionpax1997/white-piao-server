@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import NodeVM from '@/utils/node-vm';
+// import NodeVM from '@/utils/node-vm';
+import JavaScriptVM from '@/utils/script-vm';
 
 import { SearchItem, EpisodeGroup, Episode, Discovery, DiscoveryGroup, DiscoveryItem } from '@/modals/index';
 import { allowCors } from '@/utils/index';
@@ -8,8 +9,8 @@ const run = async (req: NextApiRequest, res: NextApiResponse) => {
   let data;
   try {
     const start = new Date().getTime();
-    const fun = NodeVM.run(req.body.script, 'node-vm.js');
-    data = await fun(req.body.input);
+    const fun = new JavaScriptVM(req.body.script);
+    data = await fun.run(req.body.input);
     const time = new Date().getTime() - start;
     if (!data) {
       res.status(206).json({ msg: '结果为空' });

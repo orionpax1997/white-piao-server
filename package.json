@@ -27,6 +27,7 @@
     "next-absolute-url": "^1.2.2",
     "next-auth": "^4.12.3",
     "node-global-proxy": "^1.0.1",
+    "node-html-parser": "^7.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.35.0",
